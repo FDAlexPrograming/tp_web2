@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.39, created on 2021-09-24 02:19:49
+  from 'C:\xampp\htdocs\tp_web_1\templates\modificar.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.39',
+  'unifunc' => 'content_614d19a5438d72_14020895',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'd8f5c35719436104d60c553b802ab0f1be0c37e3' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\tp_web_1\\templates\\modificar.tpl',
+      1 => 1632442420,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_614d19a5438d72_14020895 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>modificar</title>
@@ -28,3 +51,5 @@
 	</form>
 </body>
 </html>
+<?php }
+}

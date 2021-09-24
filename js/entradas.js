@@ -86,9 +86,8 @@ function activar() {
     });
 
     function iterar(item) {
-        let editar = `<button data-name="${item.id}"type="button"class="btn-editar"><i class="far fa-edit"></i></button>`;
         let borrar = `<button data-name="${item.id}"type="button"class="btn"><i class="fas fa-trash-alt"></i></button>`;
-        tablaDom.innerHTML += `${editar}${borrar}` + `${item.precio != 3000 ? ` <tr class= "destacado">
+        tablaDom.innerHTML += `${borrar}` + `${item.precio != 3000 ? ` <tr class= "destacado">
                                         <td >${item.equipo} </td>
                                         <td >${item.cantidad} </td>
                                         <td >${item.precio} </td> </tr>
@@ -100,81 +99,9 @@ function activar() {
 
     function darEvento() {
         document.querySelectorAll(".btn").forEach(b => b.addEventListener("click", borrar));
-        document.querySelectorAll(".btn-editar").forEach(b => b.addEventListener("click", formEditar));
     }
 
-    async function traerForm() {
-        try {
-            let response = await fetch(`modificar.html`)
-            if (response.ok) {
-                let formulario = await response.text();
-                multiuso.innerHTML = formulario;
-                multiuso.classList.remove("animacion-entrar");
-                multiuso.classList.remove("animacion-salir");
-            }
-        }
-        catch (error) {
-            console.log("error" + error);
-        };
-    }
 
-    async function formEditar(e) {
-        e.preventDefault();
-        await traerForm();
-        let buton = document.querySelector(".btn-modificar");
-        buton.dataset.name = this.dataset.name;
-        buton.innerHTML = "Modificar";
-        buton.addEventListener("click", modificar);
-    }
-
-    async function modificar(e) {
-        e.preventDefault();
-        let equipo = document.getElementById("editar-equipo").value
-        let cantidad = document.getElementById("editar-cantidad").value
-        let boleto = {
-            "equipo": equipo,
-            "cantidad": Number(cantidad),
-            "precio": precio(equipo)
-        }
-        if ((cantidad > 0 && cantidad < 11) && (equipo != "Elegir Equipo")) {
-            try {
-                let resp = await fetch(`${url}/${this.dataset.name}`, {
-                    "method": "PUT",
-                    "headers": { "Content-type": "application/json" },
-                    "body": JSON.stringify(boleto)
-                });
-                if (resp.ok) {
-                    multiuso.classList.add("animacion-salir");
-                }
-            }
-            catch (error) {
-                console.log(error);
-            }
-            mostrar();
-        }
-        else {
-            multiuso.classList.add("animacion-entrar");
-            multiuso.innerHTML = "Por favor ingrese un equipo y una cantidad valida";
-        }
-    }
-
-    document.getElementById("filtro").addEventListener("click", async () => {
-        await traerForm();
-        let buton_filtrar = document.querySelector(".btn-modificar");
-        buton_filtrar.innerHTML = "Filtar";
-        buton_filtrar.addEventListener("click", (e) => {
-            e.preventDefault();
-            let filtarEquipoo = document.getElementById("editar-equipo").value;
-            let filtrarCantidad = document.getElementById("editar-cantidad").value;
-            tablaDom.innerHTML = "";
-            for (const item of tabla) {
-                if (filtarEquipoo == `${item.equipo}` || filtrarCantidad == `${item.cantidad}`) {
-                    iterar(item);
-                }
-            }
-            darEvento();
-        });
-    });
     async function borrar(e) {
         e.preventDefault();
         try {
